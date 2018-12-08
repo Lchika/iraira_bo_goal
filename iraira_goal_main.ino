@@ -8,6 +8,7 @@
 #include <StandardCplusplus.h>
 #include "led_manager.hpp"
 #include <FlexiTimer2.h>
+#include <Wire.h>
 #include <Servo.h>
 #include <Arduino.h>
 
@@ -19,10 +20,14 @@
 #define PIN_LED_TOP               7         //  ゴール上のLED
 #define PIN_LED_BOTTOM            8         //  ゴール下のLED
 #define PIN_COURSE_LEVEL          9         //  コース電圧レベル
+#define PIN_10DIP_1               10        //  DIPロータリースイッチ入力1
+#define PIN_10DIP_2               13        //  DIPロータリースイッチ入力2
+#define PIN_10DIP_4               12        //  DIPロータリースイッチ入力4
+#define PIN_10DIP_8               11        //  DIPロータリースイッチ入力8
 #define PIN_PHOTO_INT             17        //  フォトインタラプタ入力
 
 //  定数定義
-#define BLINK_TIME_COURSE_TOUCH  50         //  LED点滅間隔[ms]
+#define BLINK_TIME_COURSE_TOUCH   50        //  LED点滅間隔[ms]
 #define BLINK_COUNT_COURSE_TOUCH  3         //  LED点滅回数
 
 #define INTERVAL_TIME_SERVO_CONTROL 50      //  サーボ制御処理間隔[ms]
@@ -41,6 +46,8 @@ enum EVENT_E {
 };
 
 //  関数定義
+void setup_i2c(void);
+int get_slave_address(void);
 int get_event_state(void);
 bool is_goal_switch_being_pushed(void);
 bool is_course_being_touched(void);
@@ -62,6 +69,9 @@ static bool is_servo_move = false;
  * @detail
  */
 void setup(){
+  //  シリアル通信開始
+  Serial.begin(115200);
+  Serial.println("iraira_goal_main.ino start");
 
   //  ピン設定初期化
   digitalWrite(PIN_GOAL_NOTIFI, LOW);
@@ -74,13 +84,12 @@ void setup(){
   pinMode(PIN_COURSE_LEVEL, INPUT);
   pinMode(PIN_PHOTO_INT, INPUT);
 
+  //  I2Cの設定
+  setup_i2c();
+
   //  サーボの設定
   servo.attach(PIN_SERVO);
   servo.write(DEF_ANGLE_SERVO_MOVE);
-
-  //  シリアル通信開始
-  Serial.begin(115200);
-  Serial.println("iraira_goal_main.ino start");
 
   return;
 }
@@ -105,6 +114,31 @@ void loop(){
 }
 
 /**
+ * @fn I2Cセットアップ処理
+ * @brief
+ * @param　None
+ * @return None
+ * @detail
+ */
+void setup_i2c(void){
+  Serial.println("i2c setup start");
+  Serial.println("slave address = " + String(get_slave_address()));
+  Wire.begin(get_slave_address());     //スレーブアドレスを取得してI2C開始
+  Serial.println("i2c setup end");
+}
+
+/**
+ * @fn I2Cスレーブアドレス取得処理
+ * @brief
+ * @param　None
+ * @return None
+ * @detail
+ */
+int get_slave_address(void){
+  return digitalRead(PIN_10DIP_1) | (digitalRead(PIN_10DIP_2) << 1) | (digitalRead(PIN_10DIP_4) << 2) | (digitalRead(PIN_10DIP_8) << 3);
+}
+
+/**
  * @fn イベント状態取得処理
  * @brief
  * @param　None
@@ -115,16 +149,19 @@ int get_event_state(void){
   //  ゴール前スイッチ通過中かどうか
   //  ゴール判定はほかの判定より厳密性を求められるため、割り込みの方がいいかも…
   if(is_goal_switch_being_pushed()){
+    Serial.println("get event GOAL");
     return EVENT_GOAL;
   }
 
   //  コース接触中かどうか
   if(is_course_being_touched()){
+    Serial.println("get event COURSE TOUCH");
     return EVENT_COURSE_TOUCH;
   }
 
   //  フォトインタラプタ上通過中かどうか
   if(is_passing_over_photo_int()){
+    Serial.println("get event PHOTO INT THROUGH");
     return EVENT_PHOTO_INT_THROUGH;
   }
 
@@ -143,21 +180,27 @@ void exec_event_handler(int event){
   switch(event){
     //  ゴールした
     case EVENT_GOAL:
+      Serial.println("handle event GOAL");
       //  ゴール地点LEDをすべて点灯
       ledManager.all_on();
+      Serial.println("led all on");
 
       //  D-subゴール通知
       //  D-sub関係は共通モジュールにする予定なのでここには処理は書かない?
 
       //  状態初期化
+      Serial.println("initialize start");
       ledManager.all_off();
       stop_servo_move();
+      Serial.println("initialize end");
 
       break;
 
     //  コースに接触した
     case EVENT_COURSE_TOUCH:
+      Serial.println("handle event COURSE TOUCH");
       //  ゴール地点LEDを点滅
+      Serial.println("led all blink[" + String(BLINK_TIME_COURSE_TOUCH) + ", " + String(BLINK_COUNT_COURSE_TOUCH) + "]");
       ledManager.all_blink(BLINK_TIME_COURSE_TOUCH, BLINK_COUNT_COURSE_TOUCH);
 
       //  D-sub接触通知
@@ -167,6 +210,7 @@ void exec_event_handler(int event){
 
     //  フォトインタラプタを通過した
     case EVENT_PHOTO_INT_THROUGH:
+      Serial.println("handle event PHOTO INT THROUGH");
       //  サーボ動作開始
       start_servo_move();
       break;
@@ -234,6 +278,7 @@ void start_servo_move(void){
     FlexiTimer2::set(INTERVAL_TIME_SERVO_CONTROL, control_servo_move);
     FlexiTimer2::start();
     is_servo_move = true;
+    Serial.println("start servo move");
   }
   return;
 }
@@ -251,6 +296,7 @@ void stop_servo_move(void){
     //  タイマーストップ
     FlexiTimer2::stop();
     is_servo_move = false;
+    Serial.println("stop servo move");
   }
   return;
 }
