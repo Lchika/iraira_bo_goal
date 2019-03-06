@@ -26,6 +26,15 @@
 #define PIN_10DIP_8               11        //  DIPロータリースイッチ入力8
 #define PIN_PHOTO_INT             17        //  フォトインタラプタ入力
 
+//  スレーブ共通部分
+#define PIN_GOAL        PIN_GOAL_NOTIFI     //  ゴール判定用ピン
+#define PIN_HIT         PIN_TOUCH_NOTIFI    //  当たった判定用ピン
+#define PIN_GOAL_SENSOR PIN_GOAL_SWITCH     //  通過/ゴールしたことを検知するセンサのピン
+#define PIN_HIT_SENSOR  PIN_COURSE_LEVEL    //  当たったことを検知するセンサのピン
+#define MASTER_BEGIN_TRANS        0         //  通信を開始すること
+#define MASTER_DETECT_HIT         1         //  HITを受信したこと
+#define MASTER_DETECT_GOAL        2         //  通過/ゴールを受信したこと
+
 //  定数定義
 #define BLINK_TIME_COURSE_TOUCH   50        //  LED点滅間隔[ms]
 #define BLINK_COUNT_COURSE_TOUCH  3         //  LED点滅回数
@@ -54,11 +63,15 @@ bool is_course_being_touched(void);
 bool is_passing_over_photo_int(void);
 void start_servo_move(void);
 void stop_servo_move(void);
+static void i2c_massage_handle(int byte_num);
 
 //  変数定義
 LedManager ledManager({PIN_LED_TOP, PIN_LED_BOTTOM});
 Servo servo;
 static bool is_servo_move = false;
+
+/* 変数宣言(スレーブ共通部分) */
+static bool active = false; //0のときこのモジュール内にいない/1のときこのモジュール内にいる
 
 /**
  * @fn セットアップ処理
@@ -69,6 +82,11 @@ static bool is_servo_move = false;
  * @detail
  */
 void setup(){
+  /* ここから各スレーブ共通コード */
+  pinMode(PIN_GOAL, INPUT);     //通過判定用ピンを入力として設定
+  pinMode(PIN_HIT, INPUT);      //当たった判定用ピンを入力として設定
+  /* ここまで各スレーブ共通コード */
+
   //  シリアル通信開始
   Serial.begin(115200);
   Serial.println("iraira_goal_main.ino start");
@@ -79,8 +97,8 @@ void setup(){
 
   pinMode(PIN_GOAL_SWITCH, INPUT);
   pinMode(PIN_SERVO, OUTPUT);
-  pinMode(PIN_GOAL_NOTIFI, OUTPUT);
-  pinMode(PIN_TOUCH_NOTIFI, OUTPUT);
+  //pinMode(PIN_GOAL_NOTIFI, OUTPUT);
+  //pinMode(PIN_TOUCH_NOTIFI, OUTPUT);
   pinMode(PIN_COURSE_LEVEL, INPUT);
   pinMode(PIN_PHOTO_INT, INPUT);
 
@@ -104,12 +122,23 @@ void setup(){
  * イベントが発生していた場合、そのイベントに対応した処理を実行する
  */
 void loop(){
-  //  イベント確認
-  int event = get_event_state();
+  if(active){
+    /* 通過/ゴールを検知したとき */
+    if(digitalRead(PIN_GOAL_SENSOR) == HIGH) {
+      Serial.println("COMMON: goal detected");
+      digitalWrite(PIN_GOAL, HIGH);
+    }
+    /* 当たったことを検知したとき */
+    if(digitalRead(PIN_HIT_SENSOR) == LOW) {
+      Serial.println("COMMON: hit detected");
+      digitalWrite(PIN_HIT, HIGH);
+    }
+    //  イベント確認
+    int event = get_event_state();
 
-  //  イベント対応処理実行
-  exec_event_handler(event);
-
+    //  イベント対応処理実行
+    exec_event_handler(event);
+  }
   return;
 }
 
@@ -124,6 +153,7 @@ void setup_i2c(void){
   Serial.println("i2c setup start");
   Serial.println("slave address = " + String(get_slave_address()));
   Wire.begin(get_slave_address());     //スレーブアドレスを取得してI2C開始
+  Wire.onReceive(i2c_massage_handle);
   Serial.println("i2c setup end");
 }
 
@@ -320,5 +350,44 @@ void control_servo_move(void){
   }
 
   servo.write(int(angle));
+  return;
+}
+
+/**
+ * @fn i2cメッセージハンドラ
+ * @brief
+ * @param　None
+ * @return None
+ * @detail
+ */
+static void i2c_massage_handle(int byte_num){
+  while(Wire.available()){
+    byte received_massage = Wire.read();
+    switch(received_massage){
+      case MASTER_BEGIN_TRANS:
+        Serial.println("COMMON: this module active");
+        active = true;
+        pinMode(PIN_GOAL, OUTPUT); //通過/ゴール判定ピンを出力に設定　
+        pinMode(PIN_HIT, OUTPUT); //当たった判定ピンを出力に設定
+        digitalWrite(PIN_GOAL, LOW);
+        digitalWrite(PIN_HIT, LOW);
+        break;
+      case MASTER_DETECT_GOAL:
+        Serial.println("COMMON: got MASTER_DETECT_GOAL");
+        /* 通過/ゴール判定ピン、当たった判定ピンをLOWにしてから入力に切り替える */
+        digitalWrite(PIN_GOAL, LOW);
+        digitalWrite(PIN_HIT, LOW);
+        pinMode(PIN_GOAL, INPUT);
+        pinMode(PIN_HIT, INPUT);
+        active = false;
+        break;
+      case MASTER_DETECT_HIT:
+        Serial.println("COMMON: got MASTER_DETECT_HIT");
+        digitalWrite(PIN_HIT, LOW);
+        break;
+      default:
+        break;
+    }
+  }
   return;
 }
