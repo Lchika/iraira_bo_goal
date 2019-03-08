@@ -1,0 +1,102 @@
+\hypertarget{class_led_manager}{}\section{Led\+Manager クラス}
+\label{class_led_manager}\index{LedManager@{LedManager}}
+
+
+複数個の\+L\+E\+Dを同時に操作するクラス~\newline
+基本的にはそれぞれの\+L\+E\+Dに対して全く同じ操作を行うことを想定している  
+
+
+
+
+{\ttfamily \#include $<$led\+\_\+manager.\+hpp$>$}
+
+\subsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_led_manager_a236ac36410fc821fea9c33a73645b64e}{Led\+Manager}} (std\+::initializer\+\_\+list$<$ int $>$ input\+\_\+pins)
+\item 
+void \mbox{\hyperlink{class_led_manager_a28303e2b12fbac168e9026a128977081}{all\+\_\+on}} (void)
+\begin{DoxyCompactList}\small\item\em 全点灯処理 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_led_manager_a1ae688f33cdbbcce355a56191fcc9713}{all\+\_\+off}} (void)
+\begin{DoxyCompactList}\small\item\em 全消灯処理 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_led_manager_aa29681640377c0eb701941daf4782663}{all\+\_\+blink}} (int blink\+\_\+time, int blink\+\_\+count)
+\begin{DoxyCompactList}\small\item\em 全点滅処理 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{詳解}
+複数個の\+L\+E\+Dを同時に操作するクラス~\newline
+基本的にはそれぞれの\+L\+E\+Dに対して全く同じ操作を行うことを想定している 
+
+\subsection{構築子と解体子}
+\mbox{\Hypertarget{class_led_manager_a236ac36410fc821fea9c33a73645b64e}\label{class_led_manager_a236ac36410fc821fea9c33a73645b64e}} 
+\index{LedManager@{LedManager}!LedManager@{LedManager}}
+\index{LedManager@{LedManager}!LedManager@{LedManager}}
+\subsubsection{\texorpdfstring{LedManager()}{LedManager()}}
+{\footnotesize\ttfamily Led\+Manager\+::\+Led\+Manager (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ int $>$}]{input\+\_\+pins }\end{DoxyParamCaption})}
+
+
+
+\subsection{関数詳解}
+\mbox{\Hypertarget{class_led_manager_aa29681640377c0eb701941daf4782663}\label{class_led_manager_aa29681640377c0eb701941daf4782663}} 
+\index{LedManager@{LedManager}!all\_blink@{all\_blink}}
+\index{all\_blink@{all\_blink}!LedManager@{LedManager}}
+\subsubsection{\texorpdfstring{all\_blink()}{all\_blink()}}
+{\footnotesize\ttfamily void Led\+Manager\+::all\+\_\+blink (\begin{DoxyParamCaption}\item[{int}]{blink\+\_\+time,  }\item[{int}]{blink\+\_\+count }\end{DoxyParamCaption})}
+
+
+
+全点滅処理 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em blink\+\_\+time} & 点滅時間\mbox{[}ms\mbox{]} \\
+\hline
+\mbox{\texttt{ in}}  & {\em blink\+\_\+count} & 点滅回数 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+None
+\end{DoxyReturn}
+blink\+\_\+time分だけ点けて、消してをblink\+\_\+count回繰り返す~\newline
+delay()を使って時間処理を行うため、最低でもblink\+\_\+time$\ast$2$\ast$blink\+\_\+count\mbox{[}ms\mbox{]}はほかの処理を行えないことに注意 \mbox{\Hypertarget{class_led_manager_a1ae688f33cdbbcce355a56191fcc9713}\label{class_led_manager_a1ae688f33cdbbcce355a56191fcc9713}} 
+\index{LedManager@{LedManager}!all\_off@{all\_off}}
+\index{all\_off@{all\_off}!LedManager@{LedManager}}
+\subsubsection{\texorpdfstring{all\_off()}{all\_off()}}
+{\footnotesize\ttfamily void Led\+Manager\+::all\+\_\+off (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+全消灯処理 
+
+
+\begin{DoxyParams}{引数}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+None
+\end{DoxyReturn}
+全部消す \mbox{\Hypertarget{class_led_manager_a28303e2b12fbac168e9026a128977081}\label{class_led_manager_a28303e2b12fbac168e9026a128977081}} 
+\index{LedManager@{LedManager}!all\_on@{all\_on}}
+\index{all\_on@{all\_on}!LedManager@{LedManager}}
+\subsubsection{\texorpdfstring{all\_on()}{all\_on()}}
+{\footnotesize\ttfamily void Led\+Manager\+::all\+\_\+on (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+全点灯処理 
+
+
+\begin{DoxyParams}{引数}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+None
+\end{DoxyReturn}
+全部点ける 
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{led__manager_8hpp}{led\+\_\+manager.\+hpp}}\item 
+\mbox{\hyperlink{led__manager_8cpp}{led\+\_\+manager.\+cpp}}\end{DoxyCompactItemize}

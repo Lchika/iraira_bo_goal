@@ -74,12 +74,11 @@ DsubSlaveCommunicator *dsubSlaveCommunicator;           //  D-sub通信管理用
 char dprint_buff[SIZE_BUFF];                            //  デバッグログ用一時バッファ
 
 /**
- * @fn セットアップ処理
- * @brief arduino起動時のセットアップ処理を行う
+ * @brief セットアップ処理
  * @param None
  * @return None
  * @sa
- * @detail
+ * @details arduino起動時のセットアップ処理を行う
  */
 void setup(){
   /* ここから各スレーブ共通コード */
@@ -110,12 +109,12 @@ void setup(){
 }
 
 /**
- * @fn メインループ処理
- * @brief arduinoのメインループ処理を行う
+ * @brief メインループ処理
  * @param None
  * @return None
- * @detail arduino起動後はsetup()実行後に本関数が繰り返し実行される
- * 最初に、現在発生しているイベントを確認する
+ * @details
+ * arduino起動後はsetup()実行後に本関数が繰り返し実行される\n
+ * 最初に、現在発生しているイベントを確認する\n
  * イベントが発生していた場合、そのイベントに対応した処理を実行する
  */
 void loop(){
@@ -135,11 +134,9 @@ void loop(){
 }
 
 /**
- * @fn I2Cスレーブアドレス取得処理
- * @brief
+ * @brief I2Cスレーブアドレス取得処理
  * @param　None
  * @return None
- * @detail
  */
 unsigned char get_slave_address(void){
   unsigned char adress = digitalRead(PIN_10DIP_1) | (digitalRead(PIN_10DIP_2) << 1) |
@@ -150,11 +147,9 @@ unsigned char get_slave_address(void){
 }
 
 /**
- * @fn イベント状態取得処理
- * @brief
+ * @brief イベント状態取得処理
  * @param　None
  * @return イベント番号(詳細はEVENT_E参照)
- * @detail
  */
 int get_event_state(void){
   //  ゴール前スイッチ通過中かどうか
@@ -181,11 +176,9 @@ int get_event_state(void){
 }
 
 /**
- * @fn イベント対応作業実行処理
- * @brief
+ * @brief イベント対応作業実行処理
  * @param[in] event   イベント番号(詳細はEVENT_E参照)
  * @return None
- * @detail
  */
 void exec_event_handler(int event){
   switch(event){
@@ -236,11 +229,9 @@ void exec_event_handler(int event){
 }
 
 /**
- * @fn ゴール前スイッチ状態確認処理
- * @brief
+ * @brief ゴール前スイッチ状態確認処理
  * @param　None
  * @return true:スイッチが押されている, false:押されていない
- * @detail
  */
 bool is_goal_switch_being_pushed(void){
   if(digitalRead(PIN_GOAL_SWITCH) == HIGH){
@@ -250,11 +241,9 @@ bool is_goal_switch_being_pushed(void){
 }
 
 /**
- * @fn コース接触確認処理
- * @brief
+ * @brief コース接触確認処理
  * @param　None
  * @return true:接触している, false:接触していない
- * @detail
  */
 bool is_course_being_touched(void){
   if(digitalRead(PIN_COURSE_LEVEL) == LOW){
@@ -264,11 +253,9 @@ bool is_course_being_touched(void){
 }
 
 /**
- * @fn フォトインタラプタ通過確認処理
- * @brief
+ * @brief フォトインタラプタ通過確認処理
  * @param　None
  * @return true:通過中, false:通過中でない
- * @detail
  */
 bool is_passing_over_photo_int(void){
   if(digitalRead(PIN_PHOTO_INT) == LOW){
@@ -278,11 +265,9 @@ bool is_passing_over_photo_int(void){
 }
 
 /**
- * @fn サーボ動作開始処理
- * @brief
+ * @brief サーボ動作開始処理
  * @param　None
  * @return None
- * @detail
  */
 void start_servo_move(void){
   if(!is_servo_move){
@@ -297,11 +282,9 @@ void start_servo_move(void){
 }
 
 /**
- * @fn サーボ動作停止処理
- * @brief
+ * @brief サーボ動作停止処理
  * @param　None
  * @return None
- * @detail
  */
 void stop_servo_move(void){
   if(is_servo_move){
@@ -315,11 +298,10 @@ void stop_servo_move(void){
 }
 
 /**
- * @fn サーボ動作制御処理
- * @brief
+ * @brief サーボ動作制御処理
  * @param　None
  * @return None
- * @detail 一定時間ごとにこの関数を呼んでサーボを制御する
+ * @details 一定時間ごとにこの関数を呼んでサーボを制御する
  */
 void control_servo_move(void){
   float angle = DEF_ANGLE_SERVO_MOVE;

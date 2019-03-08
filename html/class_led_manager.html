@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.15"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>iraira_goal_main: LedManager クラス</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">iraira_goal_main
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.15 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">公開メンバ関数</a> &#124;
+<a href="class_led_manager-members.html">全メンバ一覧</a>  </div>
+  <div class="headertitle">
+<div class="title">LedManager クラス</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>複数個のLEDを同時に操作するクラス<br />
+基本的にはそれぞれのLEDに対して全く同じ操作を行うことを想定している  
+ <a href="class_led_manager.html#details">[詳解]</a></p>
+
+<p><code>#include &lt;<a class="el" href="led__manager_8hpp_source.html">led_manager.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+公開メンバ関数</h2></td></tr>
+<tr class="memitem:a236ac36410fc821fea9c33a73645b64e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_led_manager.html#a236ac36410fc821fea9c33a73645b64e">LedManager</a> (std::initializer_list&lt; int &gt; input_pins)</td></tr>
+<tr class="separator:a236ac36410fc821fea9c33a73645b64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28303e2b12fbac168e9026a128977081"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_led_manager.html#a28303e2b12fbac168e9026a128977081">all_on</a> (void)</td></tr>
+<tr class="memdesc:a28303e2b12fbac168e9026a128977081"><td class="mdescLeft">&#160;</td><td class="mdescRight">全点灯処理  <a href="#a28303e2b12fbac168e9026a128977081">[詳解]</a><br /></td></tr>
+<tr class="separator:a28303e2b12fbac168e9026a128977081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae688f33cdbbcce355a56191fcc9713"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_led_manager.html#a1ae688f33cdbbcce355a56191fcc9713">all_off</a> (void)</td></tr>
+<tr class="memdesc:a1ae688f33cdbbcce355a56191fcc9713"><td class="mdescLeft">&#160;</td><td class="mdescRight">全消灯処理  <a href="#a1ae688f33cdbbcce355a56191fcc9713">[詳解]</a><br /></td></tr>
+<tr class="separator:a1ae688f33cdbbcce355a56191fcc9713"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa29681640377c0eb701941daf4782663"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_led_manager.html#aa29681640377c0eb701941daf4782663">all_blink</a> (int blink_time, int blink_count)</td></tr>
+<tr class="memdesc:aa29681640377c0eb701941daf4782663"><td class="mdescLeft">&#160;</td><td class="mdescRight">全点滅処理  <a href="#aa29681640377c0eb701941daf4782663">[詳解]</a><br /></td></tr>
+<tr class="separator:aa29681640377c0eb701941daf4782663"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>複数個のLEDを同時に操作するクラス<br />
+基本的にはそれぞれのLEDに対して全く同じ操作を行うことを想定している </p>
+</div><h2 class="groupheader">構築子と解体子</h2>
+<a id="a236ac36410fc821fea9c33a73645b64e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a236ac36410fc821fea9c33a73645b64e">&#9670;&nbsp;</a></span>LedManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LedManager::LedManager </td>
+          <td>(</td>
+          <td class="paramtype">std::initializer_list&lt; int &gt;&#160;</td>
+          <td class="paramname"><em>input_pins</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">関数詳解</h2>
+<a id="aa29681640377c0eb701941daf4782663"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa29681640377c0eb701941daf4782663">&#9670;&nbsp;</a></span>all_blink()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LedManager::all_blink </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>blink_time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>blink_count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>全点滅処理 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">blink_time</td><td>点滅時間[ms] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">blink_count</td><td>点滅回数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>None</dd></dl>
+<p>blink_time分だけ点けて、消してをblink_count回繰り返す<br />
+delay()を使って時間処理を行うため、最低でもblink_time*2*blink_count[ms]はほかの処理を行えないことに注意 </p>
+
+</div>
+</div>
+<a id="a1ae688f33cdbbcce355a56191fcc9713"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ae688f33cdbbcce355a56191fcc9713">&#9670;&nbsp;</a></span>all_off()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LedManager::all_off </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>全消灯処理 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>None</dd></dl>
+<p>全部消す </p>
+
+</div>
+</div>
+<a id="a28303e2b12fbac168e9026a128977081"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28303e2b12fbac168e9026a128977081">&#9670;&nbsp;</a></span>all_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LedManager::all_on </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>全点灯処理 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>None</dd></dl>
+<p>全部点ける </p>
+
+</div>
+</div>
+<hr/>このクラス詳解は次のファイルから抽出されました:<ul>
+<li><a class="el" href="led__manager_8hpp_source.html">led_manager.hpp</a></li>
+<li><a class="el" href="led__manager_8cpp.html">led_manager.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築: &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.15
+</small></address>
+</body>
+</html>
