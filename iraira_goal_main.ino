@@ -46,7 +46,7 @@
 #define MIN_ANGLE_SERVO_MOVE        30      //  サーボ動作最小角度[度]
 #define MAX_ANGLE_SERVO_MOVE        110     //  サーボ動作最大角度[度]
 #define DEF_ANGLE_SERVO_MOVE        MIN_ANGLE_SERVO_MOVE
-#define SIZE_BUFF                   256
+#define SIZE_BUFF                   128     //  デバッグログ出力用一時バッファサイズ
 
 enum EVENT_E {
   EVENT_NONE = 0,             //  何もなし
@@ -57,7 +57,7 @@ enum EVENT_E {
 };
 
 //  関数定義
-int get_slave_address(void);
+unsigned char get_slave_address(void);
 int get_event_state(void);
 bool is_goal_switch_being_pushed(void);
 bool is_course_being_touched(void);
@@ -67,16 +67,11 @@ void stop_servo_move(void);
 static void i2c_massage_handle(int byte_num);
 
 //  変数定義
-LedManager ledManager({PIN_LED_TOP, PIN_LED_BOTTOM});
-Servo servo;
-static bool is_servo_move = false;
-DsubSlaveCommunicator dsubSlaveCommunicator(PIN_GOAL_SWITCH,
-  PIN_COURSE_LEVEL, PIN_GOAL_NOTIFY, PIN_TOUCH_NOTIFY,
-  get_slave_address(), i2c_massage_handle);
-char dprint_buff[SIZE_BUFF];
-
-/* 変数宣言(スレーブ共通部分) */
-static bool active = false; //0のときこのモジュール内にいない/1のときこのモジュール内にいる
+LedManager ledManager({PIN_LED_TOP, PIN_LED_BOTTOM});   //  LED管理用インスタンス
+Servo servo;                                            //  サーボ制御用インスタンス
+static bool is_servo_move = false;                      //  サーボを動作させるか[true:動作させる, false:動作させない]
+DsubSlaveCommunicator *dsubSlaveCommunicator;           //  D-sub通信管理用インスタンス
+char dprint_buff[SIZE_BUFF];                            //  デバッグログ用一時バッファ
 
 /**
  * @fn セットアップ処理
@@ -104,6 +99,13 @@ void setup(){
   servo.attach(PIN_SERVO);
   servo.write(DEF_ANGLE_SERVO_MOVE);
 
+  //  D-sub通信用インスタンス生成
+  //  ログを出したいのでここで生成する
+  dsubSlaveCommunicator = new DsubSlaveCommunicator
+                          (PIN_GOAL_SWITCH, PIN_COURSE_LEVEL,
+                          PIN_GOAL_NOTIFY, PIN_TOUCH_NOTIFY,
+                          get_slave_address(), false, true);
+
   return;
 }
 
@@ -117,9 +119,10 @@ void setup(){
  * イベントが発生していた場合、そのイベントに対応した処理を実行する
  */
 void loop(){
-  if(active){
+  //  マスタから通信開始通知が来ている場合
+  if(DsubSlaveCommunicator::is_active()){
     //  D-sub関係イベント処理
-    dsubSlaveCommunicator.handle_dsub_event();
+    dsubSlaveCommunicator->handle_dsub_event();
 
     //  イベント確認
     int event = get_event_state();
@@ -127,6 +130,7 @@ void loop(){
     //  イベント対応処理実行
     exec_event_handler(event);
   }
+  //  マスタから通信開始通知が来ていない場合は何もしない
   return;
 }
 
@@ -137,9 +141,9 @@ void loop(){
  * @return None
  * @detail
  */
-int get_slave_address(void){
-  int adress = digitalRead(PIN_10DIP_1) | (digitalRead(PIN_10DIP_2) << 1) |
-              (digitalRead(PIN_10DIP_4) << 2) | (digitalRead(PIN_10DIP_8) << 3);
+unsigned char get_slave_address(void){
+  unsigned char adress = digitalRead(PIN_10DIP_1) | (digitalRead(PIN_10DIP_2) << 1) |
+                       (digitalRead(PIN_10DIP_4) << 2) | (digitalRead(PIN_10DIP_8) << 3);
   sprintf(dprint_buff, "slave address = %d", adress);
   DebugPrint(dprint_buff);
   return adress;
@@ -323,50 +327,13 @@ void control_servo_move(void){
   int fixed_time = millis() % CYCLE_TIME_SERVO_MOVE;
   
   if(fixed_time < HALF_CYCLE_TIME_SERVO_MOVE){
-    angle = (MAX_ANGLE_SERVO_MOVE - MIN_ANGLE_SERVO_MOVE) * ((float)fixed_time / HALF_CYCLE_TIME_SERVO_MOVE) + MIN_ANGLE_SERVO_MOVE;
+    angle = (MAX_ANGLE_SERVO_MOVE - MIN_ANGLE_SERVO_MOVE) *
+            ((float)fixed_time / HALF_CYCLE_TIME_SERVO_MOVE) + MIN_ANGLE_SERVO_MOVE;
   }else{
-    angle = (MIN_ANGLE_SERVO_MOVE - MAX_ANGLE_SERVO_MOVE) * ((float)fixed_time / HALF_CYCLE_TIME_SERVO_MOVE - 1.0) + MAX_ANGLE_SERVO_MOVE;
+    angle = (MIN_ANGLE_SERVO_MOVE - MAX_ANGLE_SERVO_MOVE) *
+            ((float)fixed_time / HALF_CYCLE_TIME_SERVO_MOVE - 1.0) + MAX_ANGLE_SERVO_MOVE;
   }
 
   servo.write(int(angle));
-  return;
-}
-
-/**
- * @fn i2cメッセージハンドラ
- * @brief
- * @param　None
- * @return None
- * @detail
- */
-static void i2c_massage_handle(int byte_num){
-  while(Wire.available()){
-    byte received_massage = Wire.read();
-    switch(received_massage){
-      case MASTER_BEGIN_TRANS:
-        DebugPrint("COMMON: this module active");
-        active = true;
-        pinMode(PIN_GOAL, OUTPUT); //通過/ゴール判定ピンを出力に設定　
-        pinMode(PIN_HIT, OUTPUT); //当たった判定ピンを出力に設定
-        digitalWrite(PIN_GOAL, LOW);
-        digitalWrite(PIN_HIT, LOW);
-        break;
-      case MASTER_DETECT_GOAL:
-        DebugPrint("COMMON: got MASTER_DETECT_GOAL");
-        /* 通過/ゴール判定ピン、当たった判定ピンをLOWにしてから入力に切り替える */
-        digitalWrite(PIN_GOAL, LOW);
-        digitalWrite(PIN_HIT, LOW);
-        pinMode(PIN_GOAL, INPUT);
-        pinMode(PIN_HIT, INPUT);
-        active = false;
-        break;
-      case MASTER_DETECT_HIT:
-        DebugPrint("COMMON: got MASTER_DETECT_HIT");
-        digitalWrite(PIN_HIT, LOW);
-        break;
-      default:
-        break;
-    }
-  }
   return;
 }

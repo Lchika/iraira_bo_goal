@@ -10,16 +10,14 @@
 #define DEBUG
 
 #ifdef DEBUG
-    #define BeginDebugPrint()    Serial.begin( 115200 )
+    #define BeginDebugPrint()    Serial.begin( 9600 )
     #define DebugPrint( message )\
         {\
-            char __buff__[ 512 ];\
+            char __buff__[ 128 ];\
             sprintf( __buff__\
-                   , "%s (Func:%s, File:%s, Line:%d)"\
+                   , "%s (Func:%s)"\
                    , message\
-                   , __func__\
-                   , __FILE__\
-                   , __LINE__ );\
+                   , __func__ );\
             Serial.println( __buff__ );\
             Serial.flush();\
         }
