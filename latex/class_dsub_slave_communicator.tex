@@ -1,0 +1,232 @@
+\hypertarget{class_dsub_slave_communicator}{}\section{Dsub\+Slave\+Communicator クラス}
+\label{class_dsub_slave_communicator}\index{DsubSlaveCommunicator@{DsubSlaveCommunicator}}
+
+
+D-\/subを介した通信を管理するクラス、slave用  
+
+
+
+
+{\ttfamily \#include $<$dsub\+\_\+slave\+\_\+communicator.\+hpp$>$}
+
+\subsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_dsub_slave_communicator_a5d5d26f4fa61073bf85c01aa859f4f2e}{Dsub\+Slave\+Communicator}} (int pin\+\_\+goal\+\_\+detect, int pin\+\_\+hit\+\_\+detect, int pin\+\_\+goal\+\_\+notify, int pin\+\_\+hit\+\_\+notify, unsigned char adress, bool is\+\_\+reverse\+\_\+goal=false, bool is\+\_\+reverse\+\_\+hit=false)
+\begin{DoxyCompactList}\small\item\em コンストラクタ(ピン指定) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_dsub_slave_communicator_a30697bf0229412f27e59a6f7c1b5843a}{Dsub\+Slave\+Communicator}} (bool($\ast$f\+\_\+detect\+\_\+goal)(void), bool($\ast$f\+\_\+detect\+\_\+hit)(void), int pin\+\_\+goal\+\_\+notify, int pin\+\_\+hit\+\_\+notify, unsigned char adress)
+\begin{DoxyCompactList}\small\item\em コンストラクタ(検知関数指定) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_dsub_slave_communicator_af3369086cde883a07f686203a41aab13}{$\sim$\+Dsub\+Slave\+Communicator}} (void)
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa}{setup\+\_\+i2c}} (unsigned char adress)
+\begin{DoxyCompactList}\small\item\em I2\+Cセットアップ関数 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_dsub_slave_communicator_aef578741915e2e109b7b4d7813693cfe}{handle\+\_\+dsub\+\_\+event}} (void)
+\begin{DoxyCompactList}\small\item\em D-\/sub関係イベント処理関数 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{静的公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_dsub_slave_communicator_a0bec7ba63d137c6b50b1c7f651792deb}{handle\+\_\+i2c\+\_\+massage}} (int byte\+\_\+num)
+\begin{DoxyCompactList}\small\item\em I2\+Cメッセージ処理関数 \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_dsub_slave_communicator_a7a7d6e43b95833e698761442b0741e72}{is\+\_\+active}} (void)
+\begin{DoxyCompactList}\small\item\em 活性状態確認関数 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{詳解}
+D-\/subを介した通信を管理するクラス、slave用 
+
+このクラスを利用するにあたって把握しておくべきこと
+\begin{DoxyItemize}
+\item コンストラクタの引数について
+\item \mbox{\hyperlink{class_dsub_slave_communicator_a7a7d6e43b95833e698761442b0741e72}{is\+\_\+active()}}の使い方
+\item \mbox{\hyperlink{class_dsub_slave_communicator_aef578741915e2e109b7b4d7813693cfe}{handle\+\_\+dsub\+\_\+event()}}の使い方
+\end{DoxyItemize}
+
+その他の部分はどのモジュールも共通のはずなので 特に気にする必要はない(ようにこのクラスをつくります) 
+
+\subsection{構築子と解体子}
+\mbox{\Hypertarget{class_dsub_slave_communicator_a5d5d26f4fa61073bf85c01aa859f4f2e}\label{class_dsub_slave_communicator_a5d5d26f4fa61073bf85c01aa859f4f2e}} 
+\index{DsubSlaveCommunicator@{DsubSlaveCommunicator}!DsubSlaveCommunicator@{DsubSlaveCommunicator}}
+\index{DsubSlaveCommunicator@{DsubSlaveCommunicator}!DsubSlaveCommunicator@{DsubSlaveCommunicator}}
+\subsubsection{\texorpdfstring{DsubSlaveCommunicator()}{DsubSlaveCommunicator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Dsub\+Slave\+Communicator\+::\+Dsub\+Slave\+Communicator (\begin{DoxyParamCaption}\item[{int}]{pin\+\_\+goal\+\_\+detect,  }\item[{int}]{pin\+\_\+hit\+\_\+detect,  }\item[{int}]{pin\+\_\+goal\+\_\+notify,  }\item[{int}]{pin\+\_\+hit\+\_\+notify,  }\item[{unsigned char}]{adress,  }\item[{bool}]{is\+\_\+reverse\+\_\+goal = {\ttfamily false},  }\item[{bool}]{is\+\_\+reverse\+\_\+hit = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+コンストラクタ(ピン指定) 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em pin\+\_\+goal\+\_\+detect} & ゴール検知ピン番号 \\
+\hline
+\mbox{\texttt{ in}}  & {\em pin\+\_\+hit\+\_\+detect} & コース接触検知ピン番号 \\
+\hline
+\mbox{\texttt{ in}}  & {\em pin\+\_\+goal\+\_\+notify} & ゴール通知ピン番号 \\
+\hline
+\mbox{\texttt{ in}}  & {\em pin\+\_\+hit\+\_\+notify} & コース接触通知ピン番号 \\
+\hline
+\mbox{\texttt{ in}}  & {\em adress} & スレーブアドレス \\
+\hline
+\mbox{\texttt{ in}}  & {\em is\+\_\+reverse\+\_\+goal} & ゴール検知判定を反転させるか \\
+\hline
+\mbox{\texttt{ in}}  & {\em is\+\_\+reverse\+\_\+hit} & コース接触判定を反転させるか \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_dsub_slave_communicator_a30697bf0229412f27e59a6f7c1b5843a}\label{class_dsub_slave_communicator_a30697bf0229412f27e59a6f7c1b5843a}} 
+\index{DsubSlaveCommunicator@{DsubSlaveCommunicator}!DsubSlaveCommunicator@{DsubSlaveCommunicator}}
+\index{DsubSlaveCommunicator@{DsubSlaveCommunicator}!DsubSlaveCommunicator@{DsubSlaveCommunicator}}
+\subsubsection{\texorpdfstring{DsubSlaveCommunicator()}{DsubSlaveCommunicator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Dsub\+Slave\+Communicator\+::\+Dsub\+Slave\+Communicator (\begin{DoxyParamCaption}\item[{bool($\ast$)(void)}]{f\+\_\+detect\+\_\+goal,  }\item[{bool($\ast$)(void)}]{f\+\_\+detect\+\_\+hit,  }\item[{int}]{pin\+\_\+goal\+\_\+notify,  }\item[{int}]{pin\+\_\+hit\+\_\+notify,  }\item[{unsigned char}]{adress }\end{DoxyParamCaption})}
+
+
+
+コンストラクタ(検知関数指定) 
+
+
+\begin{DoxyParams}{引数}
+{\em } & \\
+\hline
+\end{DoxyParams}
+呼び出し関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_dsub_slave_communicator_a30697bf0229412f27e59a6f7c1b5843a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_dsub_slave_communicator_af3369086cde883a07f686203a41aab13}\label{class_dsub_slave_communicator_af3369086cde883a07f686203a41aab13}} 
+\index{DsubSlaveCommunicator@{DsubSlaveCommunicator}!````~DsubSlaveCommunicator@{$\sim$DsubSlaveCommunicator}}
+\index{````~DsubSlaveCommunicator@{$\sim$DsubSlaveCommunicator}!DsubSlaveCommunicator@{DsubSlaveCommunicator}}
+\subsubsection{\texorpdfstring{$\sim$DsubSlaveCommunicator()}{~DsubSlaveCommunicator()}}
+{\footnotesize\ttfamily Dsub\+Slave\+Communicator\+::$\sim$\+Dsub\+Slave\+Communicator (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+デストラクタ 
+
+
+\begin{DoxyParams}{引数}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+None 
+\end{DoxyReturn}
+
+
+\subsection{関数詳解}
+\mbox{\Hypertarget{class_dsub_slave_communicator_aef578741915e2e109b7b4d7813693cfe}\label{class_dsub_slave_communicator_aef578741915e2e109b7b4d7813693cfe}} 
+\index{DsubSlaveCommunicator@{DsubSlaveCommunicator}!handle\_dsub\_event@{handle\_dsub\_event}}
+\index{handle\_dsub\_event@{handle\_dsub\_event}!DsubSlaveCommunicator@{DsubSlaveCommunicator}}
+\subsubsection{\texorpdfstring{handle\_dsub\_event()}{handle\_dsub\_event()}}
+{\footnotesize\ttfamily bool Dsub\+Slave\+Communicator\+::handle\+\_\+dsub\+\_\+event (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+D-\/sub関係イベント処理関数 
+
+
+\begin{DoxyParams}{引数}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+bool true\+:エラーなし、false\+:エラーあり
+\end{DoxyReturn}
+この関数はゴール・コース接触検知を行うため、定期的に呼ぶ必要がある~\newline
+とりあえずはloop()内で実行しておけば大丈夫のはず~\newline
+丁寧なつくりにするならタイマを使って定期的に実行できるようにするとよい 呼び出し関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_dsub_slave_communicator_aef578741915e2e109b7b4d7813693cfe_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_dsub_slave_communicator_a0bec7ba63d137c6b50b1c7f651792deb}\label{class_dsub_slave_communicator_a0bec7ba63d137c6b50b1c7f651792deb}} 
+\index{DsubSlaveCommunicator@{DsubSlaveCommunicator}!handle\_i2c\_massage@{handle\_i2c\_massage}}
+\index{handle\_i2c\_massage@{handle\_i2c\_massage}!DsubSlaveCommunicator@{DsubSlaveCommunicator}}
+\subsubsection{\texorpdfstring{handle\_i2c\_massage()}{handle\_i2c\_massage()}}
+{\footnotesize\ttfamily void Dsub\+Slave\+Communicator\+::handle\+\_\+i2c\+\_\+massage (\begin{DoxyParamCaption}\item[{int}]{byte\+\_\+num }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+I2\+Cメッセージ処理関数 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em byte\+\_\+num} & 受信メッセージバイト数 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+None
+\end{DoxyReturn}
+参考\+:https\+://github.com/\+Lchika/\+Iraira\+Bo\+\_\+slavetemplate/blob/master/slave\+\_\+template.\+ino 被呼び出し関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_dsub_slave_communicator_a0bec7ba63d137c6b50b1c7f651792deb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_dsub_slave_communicator_a7a7d6e43b95833e698761442b0741e72}\label{class_dsub_slave_communicator_a7a7d6e43b95833e698761442b0741e72}} 
+\index{DsubSlaveCommunicator@{DsubSlaveCommunicator}!is\_active@{is\_active}}
+\index{is\_active@{is\_active}!DsubSlaveCommunicator@{DsubSlaveCommunicator}}
+\subsubsection{\texorpdfstring{is\_active()}{is\_active()}}
+{\footnotesize\ttfamily bool Dsub\+Slave\+Communicator\+::is\+\_\+active (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+活性状態確認関数 
+
+
+\begin{DoxyParams}{引数}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+bool true\+:マスタから通信開始通知をもらっている, false\+:マスタから通信開始通知をもらっていない 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa}\label{class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa}} 
+\index{DsubSlaveCommunicator@{DsubSlaveCommunicator}!setup\_i2c@{setup\_i2c}}
+\index{setup\_i2c@{setup\_i2c}!DsubSlaveCommunicator@{DsubSlaveCommunicator}}
+\subsubsection{\texorpdfstring{setup\_i2c()}{setup\_i2c()}}
+{\footnotesize\ttfamily bool Dsub\+Slave\+Communicator\+::setup\+\_\+i2c (\begin{DoxyParamCaption}\item[{unsigned char}]{adress }\end{DoxyParamCaption})}
+
+
+
+I2\+Cセットアップ関数 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em adress} & スレーブアドレス \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+bool true\+:エラーなし、false\+:エラーあり 
+\end{DoxyReturn}
+呼び出し関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa_cgraph}
+\end{center}
+\end{figure}
+被呼び出し関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa_icgraph}
+\end{center}
+\end{figure}
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{dsub__slave__communicator_8hpp}{dsub\+\_\+slave\+\_\+communicator.\+hpp}}\item 
+\mbox{\hyperlink{dsub__slave__communicator_8cpp}{dsub\+\_\+slave\+\_\+communicator.\+cpp}}\end{DoxyCompactItemize}

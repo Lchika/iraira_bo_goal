@@ -1,0 +1,53 @@
+\hypertarget{debug_8h}{}\section{debug.\+h ファイル}
+\label{debug_8h}\index{debug.h@{debug.h}}
+被依存関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{debug_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{マクロ定義}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{debug_8h_ad72dbcf6d0153db1b8d8a58001feed83}{D\+E\+B\+UG}}
+\item 
+\#define \mbox{\hyperlink{debug_8h_a8da6c132e3e386ef44fa8f395759beb6}{Begin\+Debug\+Print}}()~Serial.\+begin( 9600 )
+\item 
+\#define \mbox{\hyperlink{debug_8h_a68c97f255bd6a5a85d4a82cf26bfd7ff}{Debug\+Print}}(message)
+\end{DoxyCompactItemize}
+
+
+\subsection{マクロ定義詳解}
+\mbox{\Hypertarget{debug_8h_a8da6c132e3e386ef44fa8f395759beb6}\label{debug_8h_a8da6c132e3e386ef44fa8f395759beb6}} 
+\index{debug.h@{debug.h}!BeginDebugPrint@{BeginDebugPrint}}
+\index{BeginDebugPrint@{BeginDebugPrint}!debug.h@{debug.h}}
+\subsubsection{\texorpdfstring{BeginDebugPrint}{BeginDebugPrint}}
+{\footnotesize\ttfamily \#define Begin\+Debug\+Print(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~Serial.\+begin( 9600 )}
+
+\mbox{\Hypertarget{debug_8h_ad72dbcf6d0153db1b8d8a58001feed83}\label{debug_8h_ad72dbcf6d0153db1b8d8a58001feed83}} 
+\index{debug.h@{debug.h}!DEBUG@{DEBUG}}
+\index{DEBUG@{DEBUG}!debug.h@{debug.h}}
+\subsubsection{\texorpdfstring{DEBUG}{DEBUG}}
+{\footnotesize\ttfamily \#define D\+E\+B\+UG}
+
+\mbox{\Hypertarget{debug_8h_a68c97f255bd6a5a85d4a82cf26bfd7ff}\label{debug_8h_a68c97f255bd6a5a85d4a82cf26bfd7ff}} 
+\index{debug.h@{debug.h}!DebugPrint@{DebugPrint}}
+\index{DebugPrint@{DebugPrint}!debug.h@{debug.h}}
+\subsubsection{\texorpdfstring{DebugPrint}{DebugPrint}}
+{\footnotesize\ttfamily \#define Debug\+Print(\begin{DoxyParamCaption}\item[{}]{message }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\(\backslash\)}
+\DoxyCodeLine{            char \_\_buff\_\_[ 128 ];\(\backslash\)}
+\DoxyCodeLine{            sprintf( \_\_buff\_\_\(\backslash\)}
+\DoxyCodeLine{                   , \textcolor{stringliteral}{"\%s (Func:\%s)"}\(\backslash\)}
+\DoxyCodeLine{                   , message\(\backslash\)}
+\DoxyCodeLine{                   , \_\_func\_\_ );\(\backslash\)}
+\DoxyCodeLine{            Serial.println( \_\_buff\_\_ );\(\backslash\)}
+\DoxyCodeLine{            Serial.flush();\(\backslash\)}
+\DoxyCodeLine{        \}}
+
+\end{DoxyCode}

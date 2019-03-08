@@ -1,0 +1,5 @@
+<map id="クラス階層図" name="クラス階層図">
+<area shape="rect" id="node1" href="$class_event_detecter.html" title="イベント検出インターフェース" alt="" coords="5,31,108,57"/>
+<area shape="rect" id="node2" href="$class_func_event_detecter.html" title="関数イベント検出クラス" alt="" coords="156,5,288,32"/>
+<area shape="rect" id="node3" href="$class_pin_event_detecter.html" title="ピンイベント検出クラス" alt="" coords="161,56,283,83"/>
+</map>

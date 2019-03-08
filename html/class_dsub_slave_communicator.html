@@ -1,0 +1,456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.15"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>iraira_goal_main: DsubSlaveCommunicator クラス</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">iraira_goal_main
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.15 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">公開メンバ関数</a> &#124;
+<a href="#pub-static-methods">静的公開メンバ関数</a> &#124;
+<a href="class_dsub_slave_communicator-members.html">全メンバ一覧</a>  </div>
+  <div class="headertitle">
+<div class="title">DsubSlaveCommunicator クラス</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>D-subを介した通信を管理するクラス、slave用  
+ <a href="class_dsub_slave_communicator.html#details">[詳解]</a></p>
+
+<p><code>#include &lt;<a class="el" href="dsub__slave__communicator_8hpp_source.html">dsub_slave_communicator.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+公開メンバ関数</h2></td></tr>
+<tr class="memitem:a5d5d26f4fa61073bf85c01aa859f4f2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dsub_slave_communicator.html#a5d5d26f4fa61073bf85c01aa859f4f2e">DsubSlaveCommunicator</a> (int pin_goal_detect, int pin_hit_detect, int pin_goal_notify, int pin_hit_notify, unsigned char adress, bool is_reverse_goal=false, bool is_reverse_hit=false)</td></tr>
+<tr class="memdesc:a5d5d26f4fa61073bf85c01aa859f4f2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">コンストラクタ(ピン指定)  <a href="#a5d5d26f4fa61073bf85c01aa859f4f2e">[詳解]</a><br /></td></tr>
+<tr class="separator:a5d5d26f4fa61073bf85c01aa859f4f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30697bf0229412f27e59a6f7c1b5843a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dsub_slave_communicator.html#a30697bf0229412f27e59a6f7c1b5843a">DsubSlaveCommunicator</a> (bool(*f_detect_goal)(void), bool(*f_detect_hit)(void), int pin_goal_notify, int pin_hit_notify, unsigned char adress)</td></tr>
+<tr class="memdesc:a30697bf0229412f27e59a6f7c1b5843a"><td class="mdescLeft">&#160;</td><td class="mdescRight">コンストラクタ(検知関数指定)  <a href="#a30697bf0229412f27e59a6f7c1b5843a">[詳解]</a><br /></td></tr>
+<tr class="separator:a30697bf0229412f27e59a6f7c1b5843a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3369086cde883a07f686203a41aab13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dsub_slave_communicator.html#af3369086cde883a07f686203a41aab13">~DsubSlaveCommunicator</a> (void)</td></tr>
+<tr class="memdesc:af3369086cde883a07f686203a41aab13"><td class="mdescLeft">&#160;</td><td class="mdescRight">デストラクタ  <a href="#af3369086cde883a07f686203a41aab13">[詳解]</a><br /></td></tr>
+<tr class="separator:af3369086cde883a07f686203a41aab13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38614c9732f810200a8429dd4bac88aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dsub_slave_communicator.html#a38614c9732f810200a8429dd4bac88aa">setup_i2c</a> (unsigned char adress)</td></tr>
+<tr class="memdesc:a38614c9732f810200a8429dd4bac88aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2Cセットアップ関数  <a href="#a38614c9732f810200a8429dd4bac88aa">[詳解]</a><br /></td></tr>
+<tr class="separator:a38614c9732f810200a8429dd4bac88aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef578741915e2e109b7b4d7813693cfe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dsub_slave_communicator.html#aef578741915e2e109b7b4d7813693cfe">handle_dsub_event</a> (void)</td></tr>
+<tr class="memdesc:aef578741915e2e109b7b4d7813693cfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">D-sub関係イベント処理関数  <a href="#aef578741915e2e109b7b4d7813693cfe">[詳解]</a><br /></td></tr>
+<tr class="separator:aef578741915e2e109b7b4d7813693cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+静的公開メンバ関数</h2></td></tr>
+<tr class="memitem:a0bec7ba63d137c6b50b1c7f651792deb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dsub_slave_communicator.html#a0bec7ba63d137c6b50b1c7f651792deb">handle_i2c_massage</a> (int byte_num)</td></tr>
+<tr class="memdesc:a0bec7ba63d137c6b50b1c7f651792deb"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2Cメッセージ処理関数  <a href="#a0bec7ba63d137c6b50b1c7f651792deb">[詳解]</a><br /></td></tr>
+<tr class="separator:a0bec7ba63d137c6b50b1c7f651792deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a7d6e43b95833e698761442b0741e72"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dsub_slave_communicator.html#a7a7d6e43b95833e698761442b0741e72">is_active</a> (void)</td></tr>
+<tr class="memdesc:a7a7d6e43b95833e698761442b0741e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">活性状態確認関数  <a href="#a7a7d6e43b95833e698761442b0741e72">[詳解]</a><br /></td></tr>
+<tr class="separator:a7a7d6e43b95833e698761442b0741e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>D-subを介した通信を管理するクラス、slave用 </p>
+<p>このクラスを利用するにあたって把握しておくべきこと</p><ul>
+<li>コンストラクタの引数について</li>
+<li><a class="el" href="class_dsub_slave_communicator.html#a7a7d6e43b95833e698761442b0741e72" title="活性状態確認関数">is_active()</a>の使い方</li>
+<li><a class="el" href="class_dsub_slave_communicator.html#aef578741915e2e109b7b4d7813693cfe" title="D-sub関係イベント処理関数">handle_dsub_event()</a>の使い方</li>
+</ul>
+<p>その他の部分はどのモジュールも共通のはずなので 特に気にする必要はない(ようにこのクラスをつくります) </p>
+</div><h2 class="groupheader">構築子と解体子</h2>
+<a id="a5d5d26f4fa61073bf85c01aa859f4f2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d5d26f4fa61073bf85c01aa859f4f2e">&#9670;&nbsp;</a></span>DsubSlaveCommunicator() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DsubSlaveCommunicator::DsubSlaveCommunicator </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pin_goal_detect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pin_hit_detect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pin_goal_notify</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pin_hit_notify</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>adress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_reverse_goal</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_reverse_hit</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>コンストラクタ(ピン指定) </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pin_goal_detect</td><td>ゴール検知ピン番号 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pin_hit_detect</td><td>コース接触検知ピン番号 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pin_goal_notify</td><td>ゴール通知ピン番号 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pin_hit_notify</td><td>コース接触通知ピン番号 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">adress</td><td>スレーブアドレス </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">is_reverse_goal</td><td>ゴール検知判定を反転させるか </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">is_reverse_hit</td><td>コース接触判定を反転させるか </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>None </dd></dl>
+
+</div>
+</div>
+<a id="a30697bf0229412f27e59a6f7c1b5843a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30697bf0229412f27e59a6f7c1b5843a">&#9670;&nbsp;</a></span>DsubSlaveCommunicator() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DsubSlaveCommunicator::DsubSlaveCommunicator </td>
+          <td>(</td>
+          <td class="paramtype">bool(*)(void)&#160;</td>
+          <td class="paramname"><em>f_detect_goal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(void)&#160;</td>
+          <td class="paramname"><em>f_detect_hit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pin_goal_notify</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pin_hit_notify</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>adress</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>コンストラクタ(検知関数指定) </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_dsub_slave_communicator_a30697bf0229412f27e59a6f7c1b5843a_cgraph.png" border="0" usemap="#class_dsub_slave_communicator_a30697bf0229412f27e59a6f7c1b5843a_cgraph" alt=""/></div>
+<map name="class_dsub_slave_communicator_a30697bf0229412f27e59a6f7c1b5843a_cgraph" id="class_dsub_slave_communicator_a30697bf0229412f27e59a6f7c1b5843a_cgraph">
+<area shape="rect"  title="ã³ã³ã¹ãã©ã¯ã¿(æ¤ç¥é¢æ°æå®)" alt="" coords="5,5,180,47"/>
+<area shape="rect"  href="class_dsub_slave_communicator.html#a38614c9732f810200a8429dd4bac88aa" title="I2Cã»ããã¢ããé¢æ°" alt="" coords="228,5,395,47"/>
+<area shape="rect"  href="class_dsub_slave_communicator.html#a0bec7ba63d137c6b50b1c7f651792deb" title="I2Cã¡ãã»ã¼ã¸å¦çé¢æ°" alt="" coords="443,5,609,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="af3369086cde883a07f686203a41aab13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3369086cde883a07f686203a41aab13">&#9670;&nbsp;</a></span>~DsubSlaveCommunicator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DsubSlaveCommunicator::~DsubSlaveCommunicator </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デストラクタ </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>None </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">関数詳解</h2>
+<a id="aef578741915e2e109b7b4d7813693cfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef578741915e2e109b7b4d7813693cfe">&#9670;&nbsp;</a></span>handle_dsub_event()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DsubSlaveCommunicator::handle_dsub_event </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>D-sub関係イベント処理関数 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>bool true:エラーなし、false:エラーあり</dd></dl>
+<p>この関数はゴール・コース接触検知を行うため、定期的に呼ぶ必要がある<br />
+とりあえずはloop()内で実行しておけば大丈夫のはず<br />
+丁寧なつくりにするならタイマを使って定期的に実行できるようにするとよい </p>
+<div class="dynheader">
+呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_dsub_slave_communicator_aef578741915e2e109b7b4d7813693cfe_cgraph.png" border="0" usemap="#class_dsub_slave_communicator_aef578741915e2e109b7b4d7813693cfe_cgraph" alt=""/></div>
+<map name="class_dsub_slave_communicator_aef578741915e2e109b7b4d7813693cfe_cgraph" id="class_dsub_slave_communicator_aef578741915e2e109b7b4d7813693cfe_cgraph">
+<area shape="rect"  title="D&#45;subé¢ä¿ã¤ãã³ãå¦çé¢æ°" alt="" coords="5,5,172,47"/>
+<area shape="rect"  href="class_event_detecter.html#ae5f2c62e1226dcd9434eef3db92a8a70" title=" " alt="" coords="220,5,379,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0bec7ba63d137c6b50b1c7f651792deb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bec7ba63d137c6b50b1c7f651792deb">&#9670;&nbsp;</a></span>handle_i2c_massage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DsubSlaveCommunicator::handle_i2c_massage </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>byte_num</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>I2Cメッセージ処理関数 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">byte_num</td><td>受信メッセージバイト数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>None</dd></dl>
+<p>参考:https://github.com/Lchika/IrairaBo_slavetemplate/blob/master/slave_template.ino </p>
+<div class="dynheader">
+被呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_dsub_slave_communicator_a0bec7ba63d137c6b50b1c7f651792deb_icgraph.png" border="0" usemap="#class_dsub_slave_communicator_a0bec7ba63d137c6b50b1c7f651792deb_icgraph" alt=""/></div>
+<map name="class_dsub_slave_communicator_a0bec7ba63d137c6b50b1c7f651792deb_icgraph" id="class_dsub_slave_communicator_a0bec7ba63d137c6b50b1c7f651792deb_icgraph">
+<area shape="rect"  title="I2Cã¡ãã»ã¼ã¸å¦çé¢æ°" alt="" coords="443,5,609,47"/>
+<area shape="rect"  href="class_dsub_slave_communicator.html#a38614c9732f810200a8429dd4bac88aa" title="I2Cã»ããã¢ããé¢æ°" alt="" coords="228,5,395,47"/>
+<area shape="rect"  href="class_dsub_slave_communicator.html#a30697bf0229412f27e59a6f7c1b5843a" title="ã³ã³ã¹ãã©ã¯ã¿(æ¤ç¥é¢æ°æå®)" alt="" coords="5,5,180,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a7a7d6e43b95833e698761442b0741e72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a7d6e43b95833e698761442b0741e72">&#9670;&nbsp;</a></span>is_active()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DsubSlaveCommunicator::is_active </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>活性状態確認関数 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>bool true:マスタから通信開始通知をもらっている, false:マスタから通信開始通知をもらっていない </dd></dl>
+
+</div>
+</div>
+<a id="a38614c9732f810200a8429dd4bac88aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38614c9732f810200a8429dd4bac88aa">&#9670;&nbsp;</a></span>setup_i2c()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DsubSlaveCommunicator::setup_i2c </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>adress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>I2Cセットアップ関数 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">adress</td><td>スレーブアドレス </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>bool true:エラーなし、false:エラーあり </dd></dl>
+<div class="dynheader">
+呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa_cgraph.png" border="0" usemap="#class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa_cgraph" alt=""/></div>
+<map name="class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa_cgraph" id="class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa_cgraph">
+<area shape="rect"  title="I2Cã»ããã¢ããé¢æ°" alt="" coords="5,5,172,47"/>
+<area shape="rect"  href="class_dsub_slave_communicator.html#a0bec7ba63d137c6b50b1c7f651792deb" title="I2Cã¡ãã»ã¼ã¸å¦çé¢æ°" alt="" coords="220,5,387,47"/>
+</map>
+</div>
+<div class="dynheader">
+被呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa_icgraph.png" border="0" usemap="#class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa_icgraph" alt=""/></div>
+<map name="class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa_icgraph" id="class_dsub_slave_communicator_a38614c9732f810200a8429dd4bac88aa_icgraph">
+<area shape="rect"  title="I2Cã»ããã¢ããé¢æ°" alt="" coords="228,5,395,47"/>
+<area shape="rect"  href="class_dsub_slave_communicator.html#a30697bf0229412f27e59a6f7c1b5843a" title="ã³ã³ã¹ãã©ã¯ã¿(æ¤ç¥é¢æ°æå®)" alt="" coords="5,5,180,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<hr/>このクラス詳解は次のファイルから抽出されました:<ul>
+<li><a class="el" href="dsub__slave__communicator_8hpp_source.html">dsub_slave_communicator.hpp</a></li>
+<li><a class="el" href="dsub__slave__communicator_8cpp.html">dsub_slave_communicator.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築: &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.15
+</small></address>
+</body>
+</html>

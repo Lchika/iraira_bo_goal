@@ -1,0 +1,67 @@
+\subsection*{外観}
+
+
+
+\subsection*{ピンアサイン}
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ pin番号  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 接続先   }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ pin番号  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 接続先   }\\\cline{1-2}
+\endhead
+D2  &ゴール前スイッチ入力   \\\cline{1-2}
+D3  &サーボ   \\\cline{1-2}
+D4  &D-\/subゴール通知ピン   \\\cline{1-2}
+D5  &D-\/subコース接触通知ピン   \\\cline{1-2}
+D7  &ゴール上\+L\+ED   \\\cline{1-2}
+D8  &ゴール下\+L\+ED   \\\cline{1-2}
+D9  &コース電圧入力   \\\cline{1-2}
+D10$\sim$13  &D\+I\+Pロータリースイッチ   \\\cline{1-2}
+D17  &フォトインタラプタ入力   \\\cline{1-2}
+\end{longtabu}
+
+
+\subsection*{iraira\+\_\+goal\+\_\+main.\+ino}
+
+
+\begin{DoxyItemize}
+\item メインプログラム
+\item loop()内の処理は以下の2つの処理を行うだけのシンプルなつくり
+\begin{DoxyItemize}
+\item イベント発生確認
+\begin{DoxyItemize}
+\item 以下の3つのイベントが発生しているか順に確認し、発生していたら該当するイベント番号を返す
+\begin{DoxyItemize}
+\item ゴール前スイッチが押されているか
+\item コースに接触しているか
+\item フォトインタラプタ通過中か
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item イベント対応処理実行
+\begin{DoxyItemize}
+\item 引数であるイベント番号に対応した処理を実行する
+\item イベントが発生していない場合は何もしない
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item Standard\+Cplusplus.\+h という外部ライブラリを使用している
+\begin{DoxyItemize}
+\item このライブラリを使うことでc++の\+S\+T\+Lを使用できる
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\subsection*{\mbox{\hyperlink{led__manager_8hpp}{led\+\_\+manager.\+hpp}} $\vert$ cpp}
+
+
+\begin{DoxyItemize}
+\item ゴール上下にある\+L\+E\+D制御用クラス
+\item 2つの\+L\+E\+Dをまとめて操作する
+\item インスタンス生成時に\+L\+E\+Dのピン番号をリストで指定する
+\item 現在は\+L\+E\+Dを2つ制御しているが任意個の\+L\+E\+Dを制御可能
+\item 点滅処理はdelay()で時間制御をしているため、一定時間ほかの処理を行いないことに注意
+\item iraira\+\_\+goal\+\_\+main.\+inoと同様に\+Standard\+Cplusplus.\+hをインクルードしている 
+\end{DoxyItemize}

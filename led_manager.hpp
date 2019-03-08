@@ -7,9 +7,10 @@
 #include <Arduino.h>
 
 /**
- *  @class LedManager
- *  @brief 複数個のLEDを同時に操作するクラス
- *         基本的にはそれぞれのLEDに対して全く同じ操作を行うことを想定している
+ * @class LedManager
+ * @brief
+ * 複数個のLEDを同時に操作するクラス\n
+ * 基本的にはそれぞれのLEDに対して全く同じ操作を行うことを想定している
  */
 class LedManager {
 private:

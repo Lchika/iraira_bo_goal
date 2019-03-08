@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.15"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>iraira_goal_main: dsub_slave_communicator.hpp ソースファイル</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">iraira_goal_main
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.15 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">dsub_slave_communicator.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="dsub__slave__communicator_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef DSUB_SLAVE_COMMUNICATOR_H</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define DSUB_SLAVE_COMMUNICATOR_H</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pin__event__detecter_8hpp.html">pin_event_detecter.hpp</a>&quot;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="func__event__detecter_8hpp.html">func_event_detecter.hpp</a>&quot;</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_dsub_slave_communicator.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_dsub_slave_communicator.html">DsubSlaveCommunicator</a> {</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">private</span>:</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> MASTER_BEGIN_TRANS = 0;  <span class="comment">//  通信開始通知</span></div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> MASTER_DETECT_HIT = 1;   <span class="comment">//  コース接触通知確認通知</span></div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> MASTER_DETECT_GOAL = 2;  <span class="comment">//  コース通過通知確認通知</span></div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> _active;                      <span class="comment">//  マスタから通信開始通知をもらっているかどうか</span></div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">int</span> _pin_goal_notify;              <span class="comment">//  ゴール通知ピン</span></div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">int</span> _pin_hit_notify;               <span class="comment">//  コース接触通知ピン</span></div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <a class="code" href="class_event_detecter.html">EventDetecter</a> *goalDetecter = NULL;       <span class="comment">//  ゴール検知クラス</span></div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <a class="code" href="class_event_detecter.html">EventDetecter</a> *hitDetecter = NULL;        <span class="comment">//  コース接触検知クラス</span></div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">char</span> dprint_buff[];</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <a class="code" href="class_dsub_slave_communicator.html#a5d5d26f4fa61073bf85c01aa859f4f2e">DsubSlaveCommunicator</a>(<span class="keywordtype">int</span> pin_goal_detect, <span class="keywordtype">int</span> pin_hit_detect,</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                  <span class="keywordtype">int</span> pin_goal_notify, <span class="keywordtype">int</span> pin_hit_notify, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> adress,</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                  <span class="keywordtype">bool</span> is_reverse_goal = <span class="keyword">false</span>, <span class="keywordtype">bool</span> is_reverse_hit = <span class="keyword">false</span>);</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="class_dsub_slave_communicator.html#a5d5d26f4fa61073bf85c01aa859f4f2e">DsubSlaveCommunicator</a>(<span class="keywordtype">bool</span> (*f_detect_goal)(<span class="keywordtype">void</span>), <span class="keywordtype">bool</span> (*f_detect_hit)(<span class="keywordtype">void</span>),</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                  <span class="keywordtype">int</span> pin_goal_notify, <span class="keywordtype">int</span> pin_hit_notify, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> adress);</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="class_dsub_slave_communicator.html#af3369086cde883a07f686203a41aab13">~DsubSlaveCommunicator</a>(<span class="keywordtype">void</span>);</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_dsub_slave_communicator.html#a38614c9732f810200a8429dd4bac88aa">setup_i2c</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> adress);</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_dsub_slave_communicator.html#aef578741915e2e109b7b4d7813693cfe">handle_dsub_event</a>(<span class="keywordtype">void</span>);</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_dsub_slave_communicator.html#a0bec7ba63d137c6b50b1c7f651792deb">handle_i2c_massage</a>(<span class="keywordtype">int</span> byte_num);</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="class_dsub_slave_communicator.html#a7a7d6e43b95833e698761442b0741e72">is_active</a>(<span class="keywordtype">void</span>);</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="class_dsub_slave_communicator_html_aef578741915e2e109b7b4d7813693cfe"><div class="ttname"><a href="class_dsub_slave_communicator.html#aef578741915e2e109b7b4d7813693cfe">DsubSlaveCommunicator::handle_dsub_event</a></div><div class="ttdeci">bool handle_dsub_event(void)</div><div class="ttdoc">D-sub関係イベント処理関数</div><div class="ttdef"><b>Definition:</b> dsub_slave_communicator.cpp:92</div></div>
+<div class="ttc" id="class_dsub_slave_communicator_html_a5d5d26f4fa61073bf85c01aa859f4f2e"><div class="ttname"><a href="class_dsub_slave_communicator.html#a5d5d26f4fa61073bf85c01aa859f4f2e">DsubSlaveCommunicator::DsubSlaveCommunicator</a></div><div class="ttdeci">DsubSlaveCommunicator(int pin_goal_detect, int pin_hit_detect, int pin_goal_notify, int pin_hit_notify, unsigned char adress, bool is_reverse_goal=false, bool is_reverse_hit=false)</div><div class="ttdoc">コンストラクタ(ピン指定)</div><div class="ttdef"><b>Definition:</b> dsub_slave_communicator.cpp:23</div></div>
+<div class="ttc" id="class_dsub_slave_communicator_html"><div class="ttname"><a href="class_dsub_slave_communicator.html">DsubSlaveCommunicator</a></div><div class="ttdoc">D-subを介した通信を管理するクラス、slave用</div><div class="ttdef"><b>Definition:</b> dsub_slave_communicator.hpp:19</div></div>
+<div class="ttc" id="class_event_detecter_html"><div class="ttname"><a href="class_event_detecter.html">EventDetecter</a></div><div class="ttdoc">イベント検出インターフェース</div><div class="ttdef"><b>Definition:</b> event_detecter.hpp:10</div></div>
+<div class="ttc" id="pin__event__detecter_8hpp_html"><div class="ttname"><a href="pin__event__detecter_8hpp.html">pin_event_detecter.hpp</a></div></div>
+<div class="ttc" id="class_dsub_slave_communicator_html_a7a7d6e43b95833e698761442b0741e72"><div class="ttname"><a href="class_dsub_slave_communicator.html#a7a7d6e43b95833e698761442b0741e72">DsubSlaveCommunicator::is_active</a></div><div class="ttdeci">static bool is_active(void)</div><div class="ttdoc">活性状態確認関数</div><div class="ttdef"><b>Definition:</b> dsub_slave_communicator.cpp:182</div></div>
+<div class="ttc" id="class_dsub_slave_communicator_html_a38614c9732f810200a8429dd4bac88aa"><div class="ttname"><a href="class_dsub_slave_communicator.html#a38614c9732f810200a8429dd4bac88aa">DsubSlaveCommunicator::setup_i2c</a></div><div class="ttdeci">bool setup_i2c(unsigned char adress)</div><div class="ttdoc">I2Cセットアップ関数</div><div class="ttdef"><b>Definition:</b> dsub_slave_communicator.cpp:114</div></div>
+<div class="ttc" id="class_dsub_slave_communicator_html_a0bec7ba63d137c6b50b1c7f651792deb"><div class="ttname"><a href="class_dsub_slave_communicator.html#a0bec7ba63d137c6b50b1c7f651792deb">DsubSlaveCommunicator::handle_i2c_massage</a></div><div class="ttdeci">static void handle_i2c_massage(int byte_num)</div><div class="ttdoc">I2Cメッセージ処理関数</div><div class="ttdef"><b>Definition:</b> dsub_slave_communicator.cpp:137</div></div>
+<div class="ttc" id="class_dsub_slave_communicator_html_af3369086cde883a07f686203a41aab13"><div class="ttname"><a href="class_dsub_slave_communicator.html#af3369086cde883a07f686203a41aab13">DsubSlaveCommunicator::~DsubSlaveCommunicator</a></div><div class="ttdeci">~DsubSlaveCommunicator(void)</div><div class="ttdoc">デストラクタ</div><div class="ttdef"><b>Definition:</b> dsub_slave_communicator.cpp:72</div></div>
+<div class="ttc" id="func__event__detecter_8hpp_html"><div class="ttname"><a href="func__event__detecter_8hpp.html">func_event_detecter.hpp</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築: &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.15
+</small></address>
+</body>
+</html>

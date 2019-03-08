@@ -9,7 +9,7 @@ int DsubSlaveCommunicator::_pin_hit_notify = -1;
 char DsubSlaveCommunicator::dprint_buff[128];
 
 /**
- * @fn コンストラクタ(検知ピン指定)
+ * @brief コンストラクタ(ピン指定)
  * @param[in] pin_goal_detect ゴール検知ピン番号
  * @param[in] pin_hit_detect  コース接触検知ピン番号
  * @param[in] pin_goal_notify ゴール通知ピン番号
@@ -44,7 +44,7 @@ DsubSlaveCommunicator::DsubSlaveCommunicator
 };
 
 /**
- * @fn コンストラクタ(検知関数指定)
+ * @brief コンストラクタ(検知関数指定)
  * @param
  * @return None
  */
@@ -65,7 +65,7 @@ DsubSlaveCommunicator::DsubSlaveCommunicator
 };
 
 /**
- * @fn デストラクタ
+ * @brief デストラクタ
  * @param None
  * @return None
  */
@@ -80,13 +80,13 @@ DsubSlaveCommunicator::~DsubSlaveCommunicator(void)
 }
 
 /**
- * @fn D-sub関係イベント処理関数
+ * @brief D-sub関係イベント処理関数
  * @param None
  * @return bool true:エラーなし、false:エラーあり
  * 
- * @detail
- * この関数はゴール・コース接触検知を行うため、定期的に呼ぶ必要がある
- * とりあえずはloop()内で実行しておけば大丈夫のはず
+ * @details
+ * この関数はゴール・コース接触検知を行うため、定期的に呼ぶ必要がある\n
+ * とりあえずはloop()内で実行しておけば大丈夫のはず\n
  * 丁寧なつくりにするならタイマを使って定期的に実行できるようにするとよい
  */
 bool DsubSlaveCommunicator::handle_dsub_event(void)
@@ -107,7 +107,7 @@ bool DsubSlaveCommunicator::handle_dsub_event(void)
 }
 
 /**
- * @fn I2Cセットアップ関数
+ * @brief I2Cセットアップ関数
  * @param[in] adress  スレーブアドレス
  * @return bool true:エラーなし、false:エラーあり
  */
@@ -128,9 +128,10 @@ bool DsubSlaveCommunicator::setup_i2c(unsigned char adress){
 }
 
 /**
- * @fn I2Cメッセージ処理関数
+ * @brief I2Cメッセージ処理関数
  * @param[in] byte_num  受信メッセージバイト数
  * @return None
+ * 
  * 参考:https://github.com/Lchika/IrairaBo_slavetemplate/blob/master/slave_template.ino
  */
 void DsubSlaveCommunicator::handle_i2c_massage(int byte_num){
@@ -174,7 +175,7 @@ void DsubSlaveCommunicator::handle_i2c_massage(int byte_num){
 }
 
 /**
- * @fn 活性状態確認関数
+ * @brief 活性状態確認関数
  * @param None
  * @return bool true:マスタから通信開始通知をもらっている, false:マスタから通信開始通知をもらっていない
  */
