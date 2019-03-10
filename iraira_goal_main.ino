@@ -5,7 +5,7 @@
  * @details
  */
 
-#include <StandardCplusplus.h>
+#include <ArduinoSTL.h>
 #include "led_manager.hpp"
 #include "dsub_slave_communicator.hpp"
 #include "debug.h"
@@ -102,7 +102,6 @@ void setup(){
   //  ログを出したいのでここで生成する
   dsubSlaveCommunicator = new DsubSlaveCommunicator
                           (PIN_GOAL_SWITCH, PIN_COURSE_LEVEL,
-                          PIN_GOAL_NOTIFY, PIN_TOUCH_NOTIFY,
                           get_slave_address(), false, true);
 
   return;

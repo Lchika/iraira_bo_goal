@@ -4,9 +4,8 @@
 #include <Arduino.h>
 
 bool DsubSlaveCommunicator::_active = false;
-int DsubSlaveCommunicator::_pin_goal_notify = -1;
-int DsubSlaveCommunicator::_pin_hit_notify = -1;
 char DsubSlaveCommunicator::dprint_buff[128];
+std::queue<int> DsubSlaveCommunicator::message_que;
 
 /**
  * @brief コンストラクタ(ピン指定)
@@ -20,27 +19,18 @@ char DsubSlaveCommunicator::dprint_buff[128];
  * @return None
  */
 DsubSlaveCommunicator::DsubSlaveCommunicator
-  (int pin_goal_detect, int pin_hit_detect,
-  int pin_goal_notify, int pin_hit_notify, unsigned char adress,
+  (int pin_goal_detect, int pin_hit_detect, unsigned char adress,
   bool is_reverse_goal, bool is_reverse_hit)
 {
-  DebugPrint("1");
-  _pin_goal_notify = pin_goal_notify;
-  _pin_hit_notify = pin_hit_notify;
-  DebugPrint("2");
   //  イベント検知インスタンス生成
   goalDetecter = new PinEventDetecter(pin_goal_detect, is_reverse_goal);
   hitDetecter = new PinEventDetecter(pin_hit_detect, is_reverse_hit);
   //  ピン動作モード設定
   //  検知系は入力
-  DebugPrint("3");
   pinMode(pin_goal_detect, INPUT);
   pinMode(pin_hit_detect, INPUT);
-  //  通知系は出力
-  pinMode(_pin_goal_notify, OUTPUT);
-  pinMode(_pin_hit_notify, OUTPUT);
-  DebugPrint("4");
   this->setup_i2c(adress);
+  _active = false;
 };
 
 /**
@@ -49,18 +39,11 @@ DsubSlaveCommunicator::DsubSlaveCommunicator
  * @return None
  */
 DsubSlaveCommunicator::DsubSlaveCommunicator
-  (bool (*f_detect_goal)(void), bool (*f_detect_hit)(void),
-  int pin_goal_notify, int pin_hit_notify, unsigned char adress)
+  (bool (*f_detect_goal)(void), bool (*f_detect_hit)(void), unsigned char adress)
 {
-  _pin_goal_notify = pin_goal_notify;
-  _pin_hit_notify = pin_hit_notify;
   //  イベント検知インスタンス生成
   goalDetecter = new FuncEventDetecter(f_detect_goal);
   hitDetecter = new FuncEventDetecter(f_detect_hit);
-  //  ピン動作モード設定
-  //  通知系は出力
-  pinMode(_pin_goal_notify, OUTPUT);
-  pinMode(_pin_hit_notify, OUTPUT);
   DsubSlaveCommunicator::setup_i2c(adress);
 };
 
@@ -91,16 +74,25 @@ DsubSlaveCommunicator::~DsubSlaveCommunicator(void)
  */
 bool DsubSlaveCommunicator::handle_dsub_event(void)
 {
+  static unsigned long last_hit_time = millis();
+
   //  ゴール検知したとき
   if(goalDetecter->is_event_detected()){
     DebugPrint("goal detected");
-    digitalWrite(_pin_goal_notify, HIGH);
+    message_que.push(2);
+    _active = false;
   }
 
   //  コース接触検知したとき
   if(hitDetecter->is_event_detected()){
-    DebugPrint("hit detected");
-    digitalWrite(_pin_hit_notify, HIGH);
+    unsigned long now_time = millis();
+    if((now_time - last_hit_time) > INTERVAL_DETECT_HIT_MS){
+      DebugPrint("hit detected");
+      last_hit_time = millis();
+      message_que.push(1);
+    }else{
+      DebugPrint("hit detected(ignore)")
+    }
   }
 
   return true;
@@ -120,53 +112,54 @@ bool DsubSlaveCommunicator::setup_i2c(unsigned char adress){
   DebugPrint("i2c setup start");
   sprintf(dprint_buff, "slave address = %d", adress);
   DebugPrint(dprint_buff);
-  Wire.begin(adress);     //スレーブアドレスを取得してI2C開始
-  Wire.onReceive(DsubSlaveCommunicator::handle_i2c_massage);
+  Wire.begin(adress);     //  スレーブアドレスを取得してI2C開始
+  Wire.onRequest(DsubSlaveCommunicator::send_i2c_message);
+  Wire.onReceive(DsubSlaveCommunicator::handle_i2c_message);
   DebugPrint("i2c setup end");
 
   return true;
 }
 
 /**
- * @brief I2Cメッセージ処理関数
+ * @brief I2Cメッセージ送信処理関数
  * @param[in] byte_num  受信メッセージバイト数
  * @return None
  * 
  * 参考:https://github.com/Lchika/IrairaBo_slavetemplate/blob/master/slave_template.ino
  */
-void DsubSlaveCommunicator::handle_i2c_massage(int byte_num){
-  DebugPrint("func start");
-  if(_pin_goal_notify == -1 || _pin_hit_notify == -1){
-    DebugPrint("<ERROR> invalid pin");
-    return;
+void DsubSlaveCommunicator::send_i2c_message(void){
+  //DebugPrint("func start");
+  if(!message_que.empty()){
+    sprintf(dprint_buff, "send i2c [%d]", message_que.front());
+    DebugPrint(dprint_buff);
+    Wire.write(message_que.front());
+    message_que.pop();
+  }else{
+    //DebugPrint("send i2c [EMPTY]");
+    Wire.write(I2C_EMPTY);
   }
+  //DebugPrint("func end");
+  return;
+}
+
+/**
+ * @brief I2Cメッセージ処理関数
+ * @param[in] byte_num  受信メッセージバイト数
+ * @return None
+ */
+void DsubSlaveCommunicator::handle_i2c_message(int byte_num){
+  DebugPrint("func start");
   while(Wire.available()){
-    DebugPrint("COMMON: got i2c massage");
+    DebugPrint("got i2c massage");
     byte received_massage = Wire.read();
     switch(received_massage){
-      case MASTER_BEGIN_TRANS:
-        DebugPrint("COMMON: this module active");
+      case I2C_BEGIN_TRANS:
+        DebugPrint("this module active");
         _active = true;
-        pinMode(_pin_goal_notify, OUTPUT);    //  通過/ゴール判定ピンを出力に設定　
-        pinMode(_pin_hit_notify, OUTPUT);     //  当たった判定ピンを出力に設定
-        digitalWrite(_pin_goal_notify, LOW);
-        digitalWrite(_pin_hit_notify, LOW);
         break;
-      case MASTER_DETECT_GOAL:
-        DebugPrint("COMMON: got MASTER_DETECT_GOAL");
-        /* 通過/ゴール判定ピン、当たった判定ピンをLOWにしてから入力に切り替える */
-        digitalWrite(_pin_goal_notify, LOW);
-        digitalWrite(_pin_hit_notify, LOW);
-        pinMode(_pin_goal_notify, INPUT);
-        pinMode(_pin_hit_notify, INPUT);
-        _active = false;
-        break;
-      case MASTER_DETECT_HIT:
-        DebugPrint("COMMON: got MASTER_DETECT_HIT");
-        digitalWrite(_pin_hit_notify, LOW);
-        break;
+      
       default:
-        DebugPrint("COMMON: <ERROR>got default");
+        DebugPrint("<ERROR> got default");
         break;
     }
   }
