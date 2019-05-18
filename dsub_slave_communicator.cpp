@@ -96,7 +96,7 @@ bool DsubSlaveCommunicator::handle_dsub_event(void)
     if((now_time - last_hit_time) > INTERVAL_DETECT_HIT_MS){
       DebugPrint("hit detected");
       last_hit_time = millis();
-      message_que.push(I2C_DETECT_HIT);
+      message_que.push();
     }else{
       DebugPrint("hit detected(ignore)")
     }
