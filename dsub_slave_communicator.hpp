@@ -24,7 +24,7 @@ private:
   static const int I2C_DETECT_HIT  = 1;     //  コース接触通知確認通知
   static const int I2C_DETECT_GOAL = 2;     //  コース通過通知確認通知
   static const int I2C_EMPTY       = 99;
-  static const int INTERVAL_DETECT_HIT_MS = 1000;
+  static const int INTERVAL_DETECT_HIT_MS = 2000;
   static bool _active;                      //  マスタから通信開始通知をもらっているかどうか
   EventDetecter *goalDetecter = NULL;       //  ゴール検知クラス
   EventDetecter *hitDetecter = NULL;        //  コース接触検知クラス
