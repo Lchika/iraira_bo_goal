@@ -7,16 +7,17 @@
 #define __DEBUG_H__
 
 //  デバッグ出力ON/OFF用マクロ
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
     #define BeginDebugPrint()    Serial.begin( 9600 )
     #define DebugPrint( message )\
         {\
-            char __buff__[ 128 ];\
+            char __buff__[ 256 ];\
             sprintf( __buff__\
-                   , "%s"\
-                   , message);\
+                   , "%s (Func:%s)"\
+                   , message\
+                   , __func__ );\
             Serial.println( __buff__ );\
             Serial.flush();\
         }
