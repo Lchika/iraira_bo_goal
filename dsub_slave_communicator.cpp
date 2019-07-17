@@ -7,6 +7,7 @@ static const int I2C_BEGIN_TRANS    = 0;     //  通信開始通知
 static const int I2C_DETECT_HIT     = 1;     //  コース接触通知確認通知
 static const int I2C_DETECT_GOAL    = 2;     //  コース通過通知確認通知
 static const int I2C_CHECK_CONNECT  = 3;     //  疎通確認
+static const int I2C_END_TRANS      = 4;     //  通信終了通知
 static const int I2C_EMPTY          = 99;
 
 bool DsubSlaveCommunicator::_active = false;
@@ -169,6 +170,14 @@ void DsubSlaveCommunicator::handle_i2c_message(int byte_num){
       case I2C_CHECK_CONNECT:
         DebugPrint("check i2c connect");
         message_que.push(I2C_CHECK_CONNECT);
+        break;
+      
+      //  I2C通信終了
+      case I2C_END_TRANS:
+        DebugPrint("end i2c trans");
+        //  念のためメッセージキューをクリアする
+        while(!message_que.empty()) message_que.pop();
+        _active = false;
         break;
       
       default:
